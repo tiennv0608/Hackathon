@@ -12,7 +12,6 @@ public class UserAccount {
     private String gender;
     private String address;
     private String phoneNumber;
-    private String hobbies;
 
     public String getUserName() {
         return userName;
@@ -70,14 +69,6 @@ public class UserAccount {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getHobbies() {
-        return hobbies;
-    }
-
-    public void setHobbies(String hobbies) {
-        this.hobbies = hobbies;
-    }
-
     public UserAccount(String userName, String password, String fullname, int age, String gender, String address, String phoneNumber) {
         this.userName = userName;
         this.password = password;
@@ -86,7 +77,6 @@ public class UserAccount {
         this.gender = gender;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.hobbies = "Soccer";
     }
 
     public UserAccount() {
@@ -101,8 +91,7 @@ public class UserAccount {
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", hobbies=" + hobbies +
+                ", phoneNumber='" + phoneNumber +
                 '}';
     }
 }
