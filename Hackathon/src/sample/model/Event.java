@@ -1,5 +1,8 @@
 package sample.model;
 
+import sample.controller.AccountManagement;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +14,14 @@ public class Event {
     private String sport;
     private String des;
     private int maxPerson;
-    private List<UserAccount> quantity = new ArrayList<>();
+    private List<UserAccount> quantity;
     private String status;
 
     public Event() {
+        quantity = new ArrayList<>();
     }
 
-    public Event(String id, String name, String time, String address, String sport, String des, int maxPerson) {
+    public Event(String id, String name, String sport, String time, String address, int maxPerson, String des) {
         this.id = id;
         this.name = name;
         this.time = time;
@@ -25,15 +29,22 @@ public class Event {
         this.sport = sport;
         this.des = des;
         this.maxPerson = maxPerson;
-        setStatus();
+        setQuantity();
     }
 
     public List<UserAccount> getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(UserAccount userAccount) {
-        this.quantity.add(userAccount);
+    public void setQuantity() {
+        AccountManagement accountManagement = new AccountManagement();
+        this.quantity.add(accountManagement.searchUser(id));
+        setStatus();
+    }
+
+    public void setQuantity(String userName) {
+        AccountManagement accountManagement = new AccountManagement();
+        this.quantity.add(accountManagement.searchUser(userName));
         setStatus();
     }
 

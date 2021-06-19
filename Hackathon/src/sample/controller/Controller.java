@@ -67,13 +67,17 @@ public class Controller implements Initializable {
     private TextArea idDes;
     private Event eventSelected;
 
-    public void logIn(ActionEvent e) throws IOException {
+    public void logOut(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("dangnhap.fxml"));
+        loader.setLocation(getClass().getResource("../view/login.fxml"));
         Parent sampleParent = loader.load();
         Scene scene = new Scene(sampleParent);
         stage.setScene(scene);
+    }
+
+    public ObservableList<Event> getAll() {
+        return events;
     }
 
     public void setAccount(UserAccount userAccount) {
@@ -95,18 +99,6 @@ public class Controller implements Initializable {
         account.setPhoneNumber(phone.getText());
         return account;
     }
-
-//    public Event getEventSelected() {
-//        Event event = new Event();
-//        event.setId(colUserName.getText());
-//        event.setName(colName.getText());
-//        event.setTime(colTime.getText());
-//        event.setSport(colType.getText());
-//        event.setPlace(place.getText());
-//        event.setMaxPerson(Integer.parseInt(status.getText().substring(2)));
-//        event.setName(colName.getText());
-//        return event;
-//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -134,7 +126,6 @@ public class Controller implements Initializable {
         event.setPlace(idPlace.getText());
         event.setMaxPerson(Integer.parseInt(idMaxPerson.getText()));
         event.setDes(idDes.getText());
-        event.setQuantity(getAccount());
         return event;
     }
 
@@ -249,6 +240,47 @@ public class Controller implements Initializable {
         eventSelected.setDes(idDes.getText());
         tableView.refresh();
         refreshForm();
+    }
+
+    public void importListEvent(ActionEvent event) {
+        List<Event> list = IOEvent.readFromFile(IOEvent.PATH);
+        events.setAll(list);
+    }
+
+    public void exportListEvent(ActionEvent event) {
+        IOEvent.writeToFile(IOEvent.PATH, events);
+    }
+
+    public boolean checkExistedUser(String id) {
+        for (Event event : events) {
+            for (UserAccount userAccount : event.getQuantity()) {
+                if (userAccount.getUserName().equals(id)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void registerEvent(ActionEvent event) {
+        eventSelected = tableView.getSelectionModel().getSelectedItem();
+        if (!eventSelected.getId().equals(userName.getText()) && !checkExistedUser(userName.getText())) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác nhận thao tác");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn có chắc chắn muốn đăng ký không?");
+            ButtonType buttonYes = new ButtonType("Đồng ý");
+            ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(buttonYes, buttonCancel);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonYes) {
+                eventSelected.setQuantity(userName.getText());
+            } else {
+                alert.close();
+            }
+        } else {
+            System.out.println("trùng");
+        }
     }
 }
 

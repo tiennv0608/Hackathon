@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("view/dangnhap.fxml"));
+            root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
             primaryStage.setTitle("Account Information");
             primaryStage.setScene(new Scene(root, 1044, 886));
             primaryStage.show();
