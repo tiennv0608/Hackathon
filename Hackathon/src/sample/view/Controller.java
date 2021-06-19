@@ -36,7 +36,7 @@ public class Controller implements Initializable {
     @FXML
     private TableView<Event> tableView;
     @FXML
-    private TableColumn<Event, String> id;
+    private TableColumn<Event, String> username;
     @FXML
     private TableColumn<Event, String> name;
     @FXML
@@ -84,7 +84,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         events = FXCollections.observableArrayList();
-        id.setCellValueFactory(new PropertyValueFactory<Event, String>("id"));
+        username.setCellValueFactory(new PropertyValueFactory<Event, String>("id"));
         name.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
         type.setCellValueFactory(new PropertyValueFactory<Event, String>("sport"));
         time.setCellValueFactory(new PropertyValueFactory<Event, String>("time"));
@@ -96,7 +96,7 @@ public class Controller implements Initializable {
 
     public Event create() {
         Event event = new Event();
-        event.setId("1");
+        event.setId(fullName.getText());
         event.setName(idEvent.getText());
         event.setSport(String.valueOf(idType.getValue()));
         event.setTime(idTime.getText());
