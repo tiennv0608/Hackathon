@@ -10,11 +10,11 @@ import sample.model.UserAccount;
 
 import java.io.IOException;
 
-public class ControllerSample {
+public class ControllerDangNhap {
     public void logIn(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("sample.fxml"));
+        loader.setLocation(getClass().getResource("../view/sample.fxml"));
         Parent sampleParent = loader.load();
         Scene scene = new Scene(sampleParent);
         UserAccount userAccount = new UserAccount("123", "oa", "a", 1, "a", "a", "a");

@@ -34,17 +34,15 @@ public class Controller implements Initializable {
     @FXML
     private Label address;
     @FXML
-    private Label hobbies;
-    @FXML
     private TableView<Event> tableView;
     @FXML
-    private TableColumn<Event, String> username;
+    private TableColumn<Event, String> colUserName;
     @FXML
-    private TableColumn<Event, String> name;
+    private TableColumn<Event, String> colName;
     @FXML
-    private TableColumn<Event, String> type;
+    private TableColumn<Event, String> colType;
     @FXML
-    private TableColumn<Event, String> time;
+    private TableColumn<Event, String> colTime;
     @FXML
     private TableColumn<Event, String> place;
     @FXML
@@ -68,20 +66,19 @@ public class Controller implements Initializable {
     public void logIn(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("newfile.fxml"));
+        loader.setLocation(getClass().getResource("dangnhap.fxml"));
         Parent sampleParent = loader.load();
         Scene scene = new Scene(sampleParent);
         stage.setScene(scene);
     }
 
     public void setAccount(UserAccount userAccount) {
-        username.setText(userAccount.getUserName());
+        userName.setText(userAccount.getUserName());
         fullName.setText(userAccount.getFullname());
         age.setText(String.valueOf(userAccount.getAge()));
         gender.setText(userAccount.getGender());
         phone.setText(userAccount.getPhoneNumber());
         address.setText(userAccount.getAddress());
-        hobbies.setText(userAccount.getHobbies());
     }
 
     public UserAccount getAccount() {
@@ -98,10 +95,10 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         events = FXCollections.observableArrayList();
-        username.setCellValueFactory(new PropertyValueFactory<Event, String>("id"));
-        name.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
-        type.setCellValueFactory(new PropertyValueFactory<Event, String>("sport"));
-        time.setCellValueFactory(new PropertyValueFactory<Event, String>("time"));
+        colUserName.setCellValueFactory(new PropertyValueFactory<Event, String>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
+        colType.setCellValueFactory(new PropertyValueFactory<Event, String>("sport"));
+        colTime.setCellValueFactory(new PropertyValueFactory<Event, String>("time"));
         place.setCellValueFactory(new PropertyValueFactory<Event, String>("place"));
         status.setCellValueFactory(new PropertyValueFactory<Event, String>("status"));
         note.setCellValueFactory(new PropertyValueFactory<Event, String>("des"));
@@ -110,7 +107,7 @@ public class Controller implements Initializable {
 
     public Event create() {
         Event event = new Event();
-        event.setId(fullName.getText());
+        event.setId(userName.getText());
         event.setName(idEvent.getText());
         event.setSport(String.valueOf(idType.getValue()));
         event.setTime(idTime.getText());
