@@ -1,4 +1,4 @@
-package sample.view;
+package sample.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +21,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private Label userName;
     @FXML
     private Label fullName;
     @FXML
@@ -73,12 +75,24 @@ public class Controller implements Initializable {
     }
 
     public void setAccount(UserAccount userAccount) {
+        username.setText(userAccount.getUserName());
         fullName.setText(userAccount.getFullname());
         age.setText(String.valueOf(userAccount.getAge()));
         gender.setText(userAccount.getGender());
         phone.setText(userAccount.getPhoneNumber());
         address.setText(userAccount.getAddress());
         hobbies.setText(userAccount.getHobbies());
+    }
+
+    public UserAccount getAccount() {
+        UserAccount account = new UserAccount();
+        account.setUserName(userName.getText());
+        account.setFullname(fullName.getText());
+        account.setAge(Integer.parseInt(age.getText()));
+        account.setGender(gender.getText());
+        account.setAddress(address.getText());
+        account.setPhoneNumber(phone.getText());
+        return account;
     }
 
     @Override
@@ -103,11 +117,12 @@ public class Controller implements Initializable {
         event.setPlace(idPlace.getText());
         event.setMaxPerson(Integer.parseInt(idMaxPerson.getText()));
         event.setDes(idDes.getText());
+        event.getQuantity().add(getAccount());
         return event;
     }
 
     public void add(ActionEvent e) {
-        confirmReset();
+        confirm();
         tableView.refresh();
         refreshForm();
     }
@@ -121,11 +136,11 @@ public class Controller implements Initializable {
         idDes.setText("");
     }
 
-    public void confirmReset() {
+    public void confirm() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Xác nhận thao tác");
         alert.setHeaderText(null);
-        alert.setContentText("Bạn có chắc chắn muốn thực hiện thao tác này?\n Mọi giao dịch của bạn sẽ bị xóa và không thể khôi phục.");
+        alert.setContentText("Bạn có chắc chắn muốn thực hiện thao tác này?");
 
         ButtonType buttonYes = new ButtonType("Đồng ý");
         ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);

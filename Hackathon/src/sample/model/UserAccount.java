@@ -102,7 +102,7 @@ public class UserAccount {
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", listsothich=" + hobbies +
+                ", hobbies=" + hobbies +
                 '}';
     }
 }

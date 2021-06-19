@@ -1,4 +1,4 @@
-package sample.view;
+package sample;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -20,14 +20,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+            root = FXMLLoader.load(getClass().getResource("view/sample.fxml"));
             primaryStage.setTitle("Account Information");
             primaryStage.setScene(new Scene(root, 1044, 886));
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
