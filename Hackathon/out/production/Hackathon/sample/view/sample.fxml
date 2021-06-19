@@ -30,12 +30,12 @@
             <children>
                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                     <children>
-                        <Label layoutX="324.0" layoutY="66.0" text="Fullname:" wrapText="true" />
-                        <Label layoutY="103.0" text="Age:" wrapText="true" />
-                        <Label layoutY="135.0" text="Gender:" wrapText="true" />
-                        <Label layoutX="324.0" layoutY="135.0" text="Phone:" wrapText="true" />
-                        <Label layoutX="324.0" layoutY="103.0" text="Address:" wrapText="true" />
-                        <Label alignment="CENTER" layoutX="218.0" layoutY="-2.0" prefHeight="32.0" prefWidth="212.0" text="Account Information" textAlignment="CENTER">
+                        <Label layoutX="324.0" layoutY="66.0" text="Họ và tên:" wrapText="true" />
+                        <Label layoutY="103.0" text="Tuổi:" wrapText="true" />
+                        <Label layoutY="135.0" text="Giới tính:" wrapText="true" />
+                        <Label layoutX="324.0" layoutY="135.0" text="Số ĐT:" wrapText="true" />
+                        <Label layoutX="324.0" layoutY="103.0" text="Địa chỉ:" wrapText="true" />
+                        <Label alignment="CENTER" layoutX="218.0" layoutY="-2.0" prefHeight="32.0" prefWidth="212.0" text="Thông tin tài khoản" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
@@ -45,25 +45,25 @@
                         <Label fx:id="gender" layoutX="64.0" layoutY="135.0" text="Gender:" wrapText="true" />
                         <Label fx:id="phone" layoutX="388.0" layoutY="135.0" text="Phone:" wrapText="true" />
                         <Label fx:id="address" layoutX="389.0" layoutY="103.0" text="Address:" wrapText="true" />
-                        <Label layoutY="68.0" text="Username" wrapText="true" />
+                        <Label layoutY="68.0" text="Username:" wrapText="true" />
                         <Label fx:id="userName" layoutX="64.0" layoutY="68.0" text="Username" wrapText="true" />
                     </children>
                 </Pane>
                 <Pane prefHeight="219.0" prefWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Label layoutX="14.0" layoutY="73.0" text="Event Name" />
+                        <Label layoutX="14.0" layoutY="73.0" text="Tên sự kiện" />
                         <TextField fx:id="idEvent" layoutX="98.0" layoutY="68.0" prefHeight="25.0" prefWidth="237.0" />
-                        <Label layoutX="14.0" layoutY="113.0" text="Type" />
-                        <Label layoutX="15.0" layoutY="153.0" text="Time" />
+                        <Label layoutX="14.0" layoutY="113.0" text="Môn" />
+                        <Label layoutX="15.0" layoutY="153.0" text="Thời gian" />
                         <TextField fx:id="idTime" layoutX="99.0" layoutY="148.0" prefHeight="25.0" prefWidth="237.0" />
-                        <Label layoutX="16.0" layoutY="190.0" text="Place" />
+                        <Label layoutX="16.0" layoutY="190.0" text="Địa điểm" />
                         <TextField fx:id="idPlace" layoutX="100.0" layoutY="185.0" prefHeight="25.0" prefWidth="237.0" />
-                        <Label layoutX="15.0" layoutY="228.0" text="Max Person" />
+                        <Label layoutX="9.0" layoutY="228.0" text="Số lượng tối đa" />
                         <TextField fx:id="idMaxPerson" layoutX="99.0" layoutY="223.0" prefHeight="25.0" prefWidth="237.0" />
-                        <Button layoutX="282.0" layoutY="364.0" mnemonicParsing="false" onAction="#add" text="Create" />
-                        <Label layoutX="13.0" layoutY="268.0" text="Note" />
+                        <Button layoutX="282.0" layoutY="364.0" mnemonicParsing="false" onAction="#addEvent" text="Tạo" />
+                        <Label layoutX="13.0" layoutY="268.0" text="Mô tả" />
                         <TextArea fx:id="idDes" layoutX="96.0" layoutY="264.0" prefHeight="83.0" prefWidth="237.0" />
-                        <Label layoutX="94.0" layoutY="1.0" text="Event Information">
+                        <Label layoutX="94.0" layoutY="1.0" text="Thông tin sự kiện">
                             <font>
 
                                 <Font name="System Bold" size="18.0" />
@@ -83,17 +83,20 @@
                                 </FXCollections>
                             </items>
                         </ComboBox>
+                  <Button layoutX="206.0" layoutY="364.0" mnemonicParsing="false" onAction="#search" text="Tìm kiếm" />
+                  <Button layoutX="87.0" layoutY="364.0" mnemonicParsing="false" onAction="#showAll" text="Hiển thị toàn bộ" />
+                  <Button layoutX="11.0" layoutY="365.0" mnemonicParsing="false" onAction="#update" text="Cập nhật" />
                     </children>
                 </Pane>
-                <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                <TableView fx:id="tableView" onMouseClicked="#getSelectedItem" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="colUserName" prefWidth="63.0" text="Username" />
-                        <TableColumn fx:id="colName" prefWidth="135.0" text="Event Name" />
-                        <TableColumn fx:id="colType" prefWidth="83.0" text="Type" />
-                        <TableColumn fx:id="colTime" prefWidth="79.0" text="Time" />
-                        <TableColumn fx:id="place" prefWidth="119.0" text="Place" />
-                        <TableColumn fx:id="status" prefWidth="78.0" text="Status" />
-                        <TableColumn fx:id="note" minWidth="0.0" prefWidth="144.0" text="Note" />
+                        <TableColumn fx:id="colName" prefWidth="135.0" text="Tên sự kiện" />
+                        <TableColumn fx:id="colType" prefWidth="83.0" text="Môn" />
+                        <TableColumn fx:id="colTime" prefWidth="79.0" text="Thời gian" />
+                        <TableColumn fx:id="place" prefWidth="119.0" text="Địa điểm" />
+                        <TableColumn fx:id="status" prefWidth="78.0" text="Trạng thái" />
+                        <TableColumn fx:id="note" minWidth="0.0" prefWidth="144.0" text="Mô tả" />
                     </columns>
                 </TableView>
             </children>

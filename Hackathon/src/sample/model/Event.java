@@ -32,8 +32,9 @@ public class Event {
         return quantity;
     }
 
-    public void setQuantity(List<UserAccount> quantity) {
-        this.quantity = quantity;
+    public void setQuantity(UserAccount userAccount) {
+        this.quantity.add(userAccount);
+        setStatus();
     }
 
 

@@ -11,12 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.model.Event;
 import sample.model.UserAccount;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,6 +65,7 @@ public class Controller implements Initializable {
     private TextField idMaxPerson;
     @FXML
     private TextArea idDes;
+    private Event eventSelected;
 
     public void logIn(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -92,6 +96,18 @@ public class Controller implements Initializable {
         return account;
     }
 
+//    public Event getEventSelected() {
+//        Event event = new Event();
+//        event.setId(colUserName.getText());
+//        event.setName(colName.getText());
+//        event.setTime(colTime.getText());
+//        event.setSport(colType.getText());
+//        event.setPlace(place.getText());
+//        event.setMaxPerson(Integer.parseInt(status.getText().substring(2)));
+//        event.setName(colName.getText());
+//        return event;
+//    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         events = FXCollections.observableArrayList();
@@ -105,6 +121,10 @@ public class Controller implements Initializable {
         tableView.setItems(events);
     }
 
+    public void showAll(ActionEvent e) {
+        tableView.setItems(events);
+    }
+
     public Event create() {
         Event event = new Event();
         event.setId(userName.getText());
@@ -114,11 +134,11 @@ public class Controller implements Initializable {
         event.setPlace(idPlace.getText());
         event.setMaxPerson(Integer.parseInt(idMaxPerson.getText()));
         event.setDes(idDes.getText());
-        event.getQuantity().add(getAccount());
+        event.setQuantity(getAccount());
         return event;
     }
 
-    public void add(ActionEvent e) {
+    public void addEvent(ActionEvent e) {
         confirm();
         tableView.refresh();
         refreshForm();
@@ -138,12 +158,9 @@ public class Controller implements Initializable {
         alert.setTitle("Xác nhận thao tác");
         alert.setHeaderText(null);
         alert.setContentText("Bạn có chắc chắn muốn thực hiện thao tác này?");
-
         ButtonType buttonYes = new ButtonType("Đồng ý");
         ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
         alert.getButtonTypes().setAll(buttonYes, buttonCancel);
-
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonYes) {
             events.add(create());
@@ -151,6 +168,87 @@ public class Controller implements Initializable {
         } else {
             alert.close();
         }
+    }
+
+    public void search(ActionEvent e) {
+        ObservableList<Event> searchList = FXCollections.observableArrayList();
+        for (Event event : events) {
+            if (event.getPlace().equals(idPlace.getText()) || event.getName().equals(idEvent.getText()) ||
+                    event.getSport().equals(idType.getValue()) || event.getTime().equals(idTime.getText())) {
+                searchList.add(event);
+            }
+        }
+        tableView.setItems(searchList);
+    }
+
+    public Event getSelectedItem(MouseEvent click) {
+        if (click.getClickCount() == 2) {
+            eventSelected = tableView.getSelectionModel().getSelectedItem();
+            confirmUserAction(eventSelected);
+        }
+        return eventSelected;
+    }
+
+    public void confirmUserAction(Event selectedEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận thao tác");
+        alert.setHeaderText(null);
+        alert.setContentText("Lựa chọn thao tác bạn muốn thực hiện");
+        ButtonType buttonEdit = new ButtonType("Chỉnh sửa");
+        ButtonType buttonDelete = new ButtonType("Xóa");
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonEdit, buttonDelete, buttonCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonEdit) {
+            editActionSelected(selectedEvent);
+        } else if (result.get() == buttonDelete) {
+            confirmDeleteDialog(selectedEvent);
+        } else {
+            alert.close();
+        }
+    }
+
+    public void editActionSelected(Event event) {
+        idEvent.setText(event.getName());
+        idTime.setText(event.getTime());
+        idType.setValue(event.getSport());
+        idPlace.setText(event.getPlace());
+        idMaxPerson.setText(String.valueOf(event.getMaxPerson()));
+        idDes.setText(event.getDes());
+    }
+
+    public void confirmDeleteDialog(Event event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận thao tác");
+        alert.setHeaderText(null);
+        alert.setContentText("Bạn có chắc chắn muốn xóa sự kiện này?");
+
+        ButtonType buttonYes = new ButtonType("Xóa");
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonYes, buttonCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonYes) {
+            deleteActionSelected(event);
+        } else {
+            alert.close();
+        }
+    }
+
+    public void deleteActionSelected(Event event) {
+        events.remove(event);
+    }
+
+    public void update(ActionEvent event) {
+        eventSelected.setName(idEvent.getText());
+        eventSelected.setSport(idType.getValue());
+        eventSelected.setTime(idTime.getText());
+        eventSelected.setPlace(idPlace.getText());
+        eventSelected.setMaxPerson(Integer.parseInt(idMaxPerson.getText()));
+        eventSelected.setDes(idDes.getText());
+        tableView.refresh();
+        refreshForm();
     }
 }
 
