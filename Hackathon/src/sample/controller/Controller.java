@@ -74,7 +74,7 @@ public class Controller implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../view/login.fxml"));
         Parent sampleParent = loader.load();
-        IOEvent.writeObj(IOEvent.OBJ_PATH, IOEvent.readObj(IOEvent.OBJ_PATH));
+        IOEvent.writeObj("C:\\Users\\Nguyen Viet Tien\\Desktop\\Codegym\\03_Baitap\\00_Hackathon\\Hackathon\\src\\file\\neweventfile.dat", IOEvent.readObj(IOEvent.OBJ_PATH));
         Scene scene = new Scene(sampleParent);
         stage.setScene(scene);
     }
