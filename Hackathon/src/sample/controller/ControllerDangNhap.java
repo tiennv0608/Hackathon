@@ -36,10 +36,10 @@ public class ControllerDangNhap {
             UserAccount userAccount = accountManagement.searchUser(idUser.getText());
             Controller controller = loader.getController();
             controller.setAccount(userAccount);
-            controller.getAll().addAll(IOEvent.readFromFile(IOEvent.PATH));
+            controller.getAll().addAll(IOEvent.readObj(IOEvent.OBJ_PATH));
             stage.setScene(scene);
         } else {
-            warning.setText("Sai id và password");
+            warning.setText("Sai tài khoản hoặc mật khâu");
             idUser.setText("");
             idPassword.setText("");
         }

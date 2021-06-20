@@ -2,10 +2,11 @@ package sample.controller;
 
 import sample.model.UserAccount;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountManagement {
+public class AccountManagement implements Serializable {
     List<UserAccount> accountUserList;
     private static AccountManagement instance = new AccountManagement();
     public AccountManagement() {

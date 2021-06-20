@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserAccount {
+public class UserAccount implements Serializable{
+
     private String userName;
     private String password;
     private String fullname;

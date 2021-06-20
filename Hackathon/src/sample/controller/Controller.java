@@ -74,6 +74,7 @@ public class Controller implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../view/login.fxml"));
         Parent sampleParent = loader.load();
+        IOEvent.writeObj(IOEvent.OBJ_PATH, IOEvent.readObj(IOEvent.OBJ_PATH));
         Scene scene = new Scene(sampleParent);
         stage.setScene(scene);
     }
@@ -259,7 +260,6 @@ public class Controller implements Initializable {
     }
 
     public boolean checkExistedUser(String id, Event eventSelected) {
-
         for (UserAccount userAccount : eventSelected.getQuantity()) {
             if (userAccount.getUserName().equals(id)) {
                 return false;
@@ -270,7 +270,9 @@ public class Controller implements Initializable {
 
     public void registerEvent(ActionEvent event) {
         eventSelected = tableView.getSelectionModel().getSelectedItem();
-        if (!eventSelected.getId().equals(userName.getText())) {
+        if (eventSelected.getQuantity().size() == eventSelected.getMaxPerson()) {
+            notification.setContentText("Sự kiện này đã đủ người!");
+        } else {
             if (checkExistedUser(userName.getText(), eventSelected)) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Xác nhận thao tác");
@@ -282,12 +284,13 @@ public class Controller implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonYes) {
                     eventSelected.setQuantity(userName.getText());
+                    tableView.refresh();
                 } else {
                     alert.close();
                 }
+            } else {
+                notification.setContentText("Bạn đã đăng ký sự kiện này rồi!");
             }
-        } else {
-            notification.setContentText("Bạn đã đăng ký sự kiện này rồi!");
         }
     }
 }

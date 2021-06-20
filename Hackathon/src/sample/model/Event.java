@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+public class Event implements Serializable{
+
     private String id;
     private String name;
     private String time;
@@ -37,14 +38,12 @@ public class Event {
     }
 
     public void setQuantity() {
-//        this.quantity = accountManagement.getAccountUserList();
         this.quantity.add(accountManagement.searchUser(id));
         setStatus();
     }
 
     public void setQuantity(String userName) {
-        AccountManagement accountManagement = new AccountManagement();
-        this.quantity = accountManagement.getAccountUserList();
+//        this.quantity = accountManagement.getAccountUserList();
         this.quantity.add(accountManagement.searchUser(userName));
         setStatus();
     }

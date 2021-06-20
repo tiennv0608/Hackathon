@@ -12,9 +12,10 @@ import java.util.List;
 
 public class IOEvent {
     public static final String PATH = "C:\\Users\\Nguyen Viet Tien\\Desktop\\Codegym\\03_Baitap\\00_Hackathon\\Hackathon\\src\\file\\event.csv";
+    public static final String OBJ_PATH = "C:\\Users\\Nguyen Viet Tien\\Desktop\\Codegym\\03_Baitap\\00_Hackathon\\Hackathon\\src\\file\\event.dat";
 
     public static List<Event> readFromFile(String path) {
-        List<Event> list = FXCollections.observableArrayList();
+        List<Event> list = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(path);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -48,4 +49,32 @@ public class IOEvent {
             e.printStackTrace();
         }
     }
+
+    public static List<Event> readObj(String path) {
+        List<Event> list = new ArrayList<>();
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(path);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            list.addAll((Collection<? extends Event>) objectInputStream.readObject());
+            objectInputStream.close();
+            fileInputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void writeObj(String path, List<Event> list) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(list);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

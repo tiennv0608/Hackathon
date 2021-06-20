@@ -9,6 +9,7 @@ import java.util.List;
 
 public class IOUserAccount {
     public static final String PATH = "C:\\Users\\Nguyen Viet Tien\\Desktop\\Codegym\\03_Baitap\\00_Hackathon\\Hackathon\\src\\file\\username.csv";
+    public static final String OBJ_PATH = "C:\\Users\\Nguyen Viet Tien\\Desktop\\Codegym\\03_Baitap\\00_Hackathon\\Hackathon\\src\\file\\username.dat";
 
     public static List<UserAccount> readUser(String path) {
         List<UserAccount> list = new ArrayList<>();
@@ -45,4 +46,38 @@ public class IOUserAccount {
             e.printStackTrace();
         }
     }
+
+    public static List<UserAccount> readObj(String path) {
+        List<UserAccount> list = new ArrayList<>();
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(path);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            list.addAll((Collection<? extends UserAccount>) objectInputStream.readObject());
+            objectInputStream.close();
+            fileInputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void writeObj(String path, List<UserAccount> list) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(list);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
