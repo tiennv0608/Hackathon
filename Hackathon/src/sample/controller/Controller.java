@@ -66,6 +66,8 @@ public class Controller implements Initializable {
     @FXML
     private TextArea idDes;
     private Event eventSelected;
+    @FXML
+    private DialogPane notification;
 
     public void logOut(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -176,7 +178,11 @@ public class Controller implements Initializable {
     public Event getSelectedItem(MouseEvent click) {
         if (click.getClickCount() == 2) {
             eventSelected = tableView.getSelectionModel().getSelectedItem();
-            confirmUserAction(eventSelected);
+            if (eventSelected.getId().equals(userName.getText())) {
+                confirmUserAction(eventSelected);
+            } else {
+                notification.setContentText("Bạn không thể sửa hay xóa sự kiện này!");
+            }
         }
         return eventSelected;
     }
@@ -253,7 +259,7 @@ public class Controller implements Initializable {
     }
 
     public boolean checkExistedUser(String id) {
-        for (Event event : events) {
+        for (Event event : getAll()) {
             for (UserAccount userAccount : event.getQuantity()) {
                 if (userAccount.getUserName().equals(id)) {
                     return false;
@@ -265,7 +271,7 @@ public class Controller implements Initializable {
 
     public void registerEvent(ActionEvent event) {
         eventSelected = tableView.getSelectionModel().getSelectedItem();
-        if (!eventSelected.getId().equals(userName.getText()) && !checkExistedUser(userName.getText())) {
+        if (!eventSelected.getId().equals(userName.getText())) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Xác nhận thao tác");
             alert.setHeaderText(null);
@@ -280,7 +286,7 @@ public class Controller implements Initializable {
                 alert.close();
             }
         } else {
-            System.out.println("trùng");
+            notification.setContentText("Bạn đã đăng ký sự kiện này rồi!");
         }
     }
 }

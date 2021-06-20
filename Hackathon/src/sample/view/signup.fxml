@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ControllerSignUp">
+    <children>
+        <Label layoutX="233.0" layoutY="1.0" text="ĐĂNG KÝ">
+            <font>
+                <Font size="18.0" />
+            </font></Label>
+        <Button layoutX="266.0" layoutY="356.0" mnemonicParsing="false" onAction="#createAccount" text="Đăng ký">
+            <font>
+                <Font size="18.0" />
+            </font></Button>
+        <TextField fx:id="nameForm" layoutX="172.0" layoutY="36.0" prefHeight="33.0" prefWidth="262.0" promptText="Họ và tên" />
+        <PasswordField fx:id="passForm" layoutX="172.0" layoutY="124.0" prefHeight="33.0" prefWidth="262.0" promptText="Mật khẩu" />
+        <PasswordField fx:id="confirmPass" layoutX="172.0" layoutY="164.0" prefHeight="33.0" prefWidth="262.0" promptText="Xác nhận mật khẩu" />
+        <TextField fx:id="idForm" layoutX="172.0" layoutY="81.0" prefHeight="33.0" prefWidth="262.0" promptText="Tên đăng nhập" />
+        <TextField fx:id="numberForm" layoutX="174.0" layoutY="273.0" prefHeight="33.0" prefWidth="262.0" promptText="Số điện thoại" />
+        <TextField fx:id="addressForm" layoutX="176.0" layoutY="314.0" prefHeight="33.0" prefWidth="262.0" promptText="Địa chỉ" />
+        <TextField fx:id="ageForm" layoutX="172.0" layoutY="200.0" prefHeight="25.0" prefWidth="262.0" promptText="Tuổi">
+        </TextField>
+        <Button fx:id="checkIdForm" layoutX="451.0" layoutY="81.0" mnemonicParsing="false" onAction="#alertCheckIdForm" prefHeight="33.0" prefWidth="75.0" text="Kiểm tra" />
+        <ComboBox fx:id="genderForm" layoutX="174.0" layoutY="239.0" prefHeight="25.0" prefWidth="89.0" promptText="Giới tính">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Nam" />
+                    <String fx:value="Nữ" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+    </children>
+</Pane>

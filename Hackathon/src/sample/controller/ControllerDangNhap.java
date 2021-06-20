@@ -49,6 +49,15 @@ public class ControllerDangNhap {
         }
     }
 
+    public void signUp(ActionEvent e) throws IOException {
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/signup.fxml"));
+        Parent sampleParent = loader.load();
+        Scene scene = new Scene(sampleParent);
+        stage.setScene(scene);
+    }
+
     public boolean checkID() {
         for (UserAccount userAccount : accountManagement.getAccountUserList()) {
             if (idUser.getText().equals(userAccount.getUserName()) && idPassword.getText().equals(userAccount.getPassword())) {

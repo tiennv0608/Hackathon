@@ -110,7 +110,7 @@
                         <Font name="Arial" size="36.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#logIn" prefHeight="45.0" prefWidth="382.0" styleClass="left-side-background" stylesheets="@../../values/style.css" text="Sign Up" textFill="#fcfcfc">
+                  <Button mnemonicParsing="false" onAction="#signUp" prefHeight="45.0" prefWidth="382.0" styleClass="left-side-background" stylesheets="@../../values/style.css" text="Sign Up" textFill="#fcfcfc">
                      <font>
                         <Font name="Arial" size="36.0" />
                      </font>
