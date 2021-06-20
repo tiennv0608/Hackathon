@@ -2,9 +2,15 @@ package sample.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import sample.model.UserAccount;
 
+import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,4 +105,16 @@ public class ControllerSignUp {
         }
     }
 
+    public void returnToMain(ActionEvent e) {
+        try {
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/login.fxml"));
+            Parent sampleParent = loader.load();
+            Scene scene = new Scene(sampleParent);
+            stage.setScene(scene);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
 }

@@ -37,6 +37,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
+      <Button layoutX="541.0" layoutY="-2.0" mnemonicParsing="false" onAction="#returnToMain" text="Quay lại" />
 
     </children>
 </Pane>

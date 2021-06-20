@@ -18,6 +18,7 @@ import sample.model.UserAccount;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +75,11 @@ public class Controller implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../view/login.fxml"));
         Parent sampleParent = loader.load();
-        IOEvent.writeObj("C:\\Users\\Nguyen Viet Tien\\Desktop\\Codegym\\03_Baitap\\00_Hackathon\\Hackathon\\src\\file\\neweventfile.dat", IOEvent.readObj(IOEvent.OBJ_PATH));
+        List<Event> newList = new ArrayList<>();
+        for (Event event : events) {
+            newList.add(event);
+        }
+        IOEvent.writeObj(IOEvent.OBJ_PATH, newList);
         Scene scene = new Scene(sampleParent);
         stage.setScene(scene);
     }
@@ -239,6 +244,7 @@ public class Controller implements Initializable {
         events.remove(event);
     }
 
+
     public void update(ActionEvent event) {
         eventSelected.setName(idEvent.getText());
         eventSelected.setSport(idType.getValue());
@@ -251,12 +257,16 @@ public class Controller implements Initializable {
     }
 
     public void importListEvent(ActionEvent event) {
-        List<Event> list = IOEvent.readFromFile(IOEvent.PATH);
+        List<Event> list = IOEvent.readObj("eventnew.dat");
         events.setAll(list);
     }
 
     public void exportListEvent(ActionEvent event) {
-        IOEvent.writeToFile(IOEvent.PATH, events);
+        List<Event> eventList = new ArrayList<>();
+        for (Event event1 : events) {
+            eventList.add(event1);
+        }
+        IOEvent.writeObj("eventnew.dat", eventList);
     }
 
     public boolean checkExistedUser(String id, Event eventSelected) {
@@ -292,6 +302,46 @@ public class Controller implements Initializable {
                 notification.setContentText("Bạn đã đăng ký sự kiện này rồi!");
             }
         }
+    }
+
+    public void searchMyEvent(ActionEvent e) {
+        ObservableList<Event> list = FXCollections.observableArrayList();
+        for (Event event : events) {
+            if (event.getId().equals(userName.getText())) {
+                list.add(event);
+            }
+        }
+        tableView.setItems(list);
+    }
+
+    public void getInformation(ActionEvent e) {
+        eventSelected = tableView.getSelectionModel().getSelectedItem();
+        editActionSelected(eventSelected);
+        idEvent.setDisable(true);
+        idType.setDisable(true);
+        idTime.setDisable(true);
+        idPlace.setDisable(true);
+        idMaxPerson.setDisable(true);
+        idDes.setDisable(true);
+    }
+
+    public void resetAll(ActionEvent e) {
+        idEvent.setDisable(false);
+        idType.setDisable(false);
+        idTime.setDisable(false);
+        idPlace.setDisable(false);
+        idMaxPerson.setDisable(false);
+        idDes.setDisable(false);
+        clearAll();
+    }
+
+    public void clearAll() {
+        idEvent.clear();
+        idType.setValue("- Chọn môn thể thao -");
+        idTime.clear();
+        idPlace.clear();
+        idMaxPerson.clear();
+        idDes.clear();
     }
 }
 

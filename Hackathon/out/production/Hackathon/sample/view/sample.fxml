@@ -49,6 +49,7 @@
                         <Label fx:id="address" layoutX="389.0" layoutY="103.0" text="Address:" wrapText="true" />
                         <Label layoutY="68.0" text="Username:" wrapText="true" />
                         <Label fx:id="userName" layoutX="64.0" layoutY="68.0" text="Username" wrapText="true" />
+                  <Button layoutX="609.0" layoutY="182.0" mnemonicParsing="false" onAction="#searchMyEvent" text="Sự kiện của tôi" />
                     </children>
                 </Pane>
                 <Pane prefHeight="219.0" prefWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -71,7 +72,7 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="idType" layoutX="100.0" layoutY="109.0" prefHeight="25.0" prefWidth="237.0">
+                        <ComboBox fx:id="idType" layoutX="100.0" layoutY="109.0" prefHeight="25.0" prefWidth="237.0" promptText="- Chọn môn thể thao -">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Soccer" />
@@ -92,7 +93,8 @@
                   <Button layoutX="280.0" layoutY="456.0" mnemonicParsing="false" onAction="#exportListEvent" text="Export" />
                   <Button layoutX="270.0" layoutY="654.0" mnemonicParsing="false" onAction="#logOut" text="Đăng xuất" />
                   <Button layoutX="13.0" layoutY="412.0" mnemonicParsing="false" onAction="#registerEvent" text="Đăng ký" />
-                  <Button layoutX="89.0" layoutY="412.0" mnemonicParsing="false" text="Xem thông tin người tham gia" />
+                  <Button layoutX="89.0" layoutY="412.0" mnemonicParsing="false" onAction="#getInformation" text="Xem thông tin sự kiện" />
+                  <Button layoutX="279.0" layoutY="497.0" mnemonicParsing="false" onAction="#resetAll" text="Reset All" />
                     </children>
                 </Pane>
                 <TableView fx:id="tableView" onMouseClicked="#getSelectedItem" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
