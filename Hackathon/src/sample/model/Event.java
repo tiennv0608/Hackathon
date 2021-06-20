@@ -38,12 +38,14 @@ public class Event {
 
     public void setQuantity() {
         AccountManagement accountManagement = new AccountManagement();
+        this.quantity = accountManagement.getAccountUserList();
         this.quantity.add(accountManagement.searchUser(id));
         setStatus();
     }
 
     public void setQuantity(String userName) {
         AccountManagement accountManagement = new AccountManagement();
+        this.quantity = accountManagement.getAccountUserList();
         this.quantity.add(accountManagement.searchUser(userName));
         setStatus();
     }

@@ -126,6 +126,7 @@ public class Controller implements Initializable {
         event.setPlace(idPlace.getText());
         event.setMaxPerson(Integer.parseInt(idMaxPerson.getText()));
         event.setDes(idDes.getText());
+        event.setQuantity();
         return event;
     }
 

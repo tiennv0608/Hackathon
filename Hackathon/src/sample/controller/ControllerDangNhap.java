@@ -29,8 +29,8 @@ public class ControllerDangNhap {
 
         accountManagement.getAccountUserList().add(new UserAccount("tien", "tien", "nvt", 10, "1", "1", "1"));
         accountManagement.getAccountUserList().add(new UserAccount("hung", "hung", "tqh", 9, "1", "1", "1"));
-        accountManagement.getAccountUserList().add(new UserAccount("son", "son", "dhs", 8, "1", "1", "1"));
-        accountManagement.getAccountUserList().add(new UserAccount("hieu", "hieu", "nth", 10, "1", "1", "1"));
+        accountManagement.getAccountUserList().add(new UserAccount("123", "son", "dhs", 8, "1", "1", "1"));
+        accountManagement.getAccountUserList().add(new UserAccount("Username", "hieu", "nth", 10, "1", "1", "1"));
         if (checkID()) {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
@@ -40,6 +40,7 @@ public class ControllerDangNhap {
             UserAccount userAccount = accountManagement.searchUser(idUser.getText());
             Controller controller = loader.getController();
             controller.setAccount(userAccount);
+            controller.getAll().addAll(IOEvent.readFromFile(IOEvent.PATH));
             stage.setScene(scene);
         } else {
             warning.setText("Sai id và password");
