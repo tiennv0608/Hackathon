@@ -14,11 +14,11 @@ public class Event {
     private String sport;
     private String des;
     private int maxPerson;
-    private List<UserAccount> quantity;
+    private List<UserAccount> quantity = new ArrayList<>();
     private String status;
+    private AccountManagement accountManagement = AccountManagement.getInstance();
 
     public Event() {
-        quantity = new ArrayList<>();
     }
 
     public Event(String id, String name, String sport, String time, String address, int maxPerson, String des) {
@@ -37,8 +37,7 @@ public class Event {
     }
 
     public void setQuantity() {
-        AccountManagement accountManagement = new AccountManagement();
-        this.quantity = accountManagement.getAccountUserList();
+//        this.quantity = accountManagement.getAccountUserList();
         this.quantity.add(accountManagement.searchUser(id));
         setStatus();
     }

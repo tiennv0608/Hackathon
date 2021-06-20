@@ -258,12 +258,11 @@ public class Controller implements Initializable {
         IOEvent.writeToFile(IOEvent.PATH, events);
     }
 
-    public boolean checkExistedUser(String id) {
-        for (Event event : getAll()) {
-            for (UserAccount userAccount : event.getQuantity()) {
-                if (userAccount.getUserName().equals(id)) {
-                    return false;
-                }
+    public boolean checkExistedUser(String id, Event eventSelected) {
+
+        for (UserAccount userAccount : eventSelected.getQuantity()) {
+            if (userAccount.getUserName().equals(id)) {
+                return false;
             }
         }
         return true;
@@ -272,18 +271,20 @@ public class Controller implements Initializable {
     public void registerEvent(ActionEvent event) {
         eventSelected = tableView.getSelectionModel().getSelectedItem();
         if (!eventSelected.getId().equals(userName.getText())) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Xác nhận thao tác");
-            alert.setHeaderText(null);
-            alert.setContentText("Bạn có chắc chắn muốn đăng ký không?");
-            ButtonType buttonYes = new ButtonType("Đồng ý");
-            ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(buttonYes, buttonCancel);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonYes) {
-                eventSelected.setQuantity(userName.getText());
-            } else {
-                alert.close();
+            if (checkExistedUser(userName.getText(), eventSelected)) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Xác nhận thao tác");
+                alert.setHeaderText(null);
+                alert.setContentText("Bạn có chắc chắn muốn đăng ký không?");
+                ButtonType buttonYes = new ButtonType("Đồng ý");
+                ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(buttonYes, buttonCancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == buttonYes) {
+                    eventSelected.setQuantity(userName.getText());
+                } else {
+                    alert.close();
+                }
             }
         } else {
             notification.setContentText("Bạn đã đăng ký sự kiện này rồi!");

@@ -26,11 +26,7 @@ public class ControllerDangNhap {
 
 
     public void logIn(ActionEvent e) throws IOException {
-
-        accountManagement.getAccountUserList().add(new UserAccount("tien", "tien", "nvt", 10, "1", "1", "1"));
-        accountManagement.getAccountUserList().add(new UserAccount("hung", "hung", "tqh", 9, "1", "1", "1"));
-        accountManagement.getAccountUserList().add(new UserAccount("123", "son", "dhs", 8, "1", "1", "1"));
-        accountManagement.getAccountUserList().add(new UserAccount("Username", "hieu", "nth", 10, "1", "1", "1"));
+        accountManagement.getAccountUserList().addAll(IOUserAccount.readUser(IOUserAccount.PATH));
         if (checkID()) {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();

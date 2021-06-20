@@ -7,9 +7,13 @@ import java.util.List;
 
 public class AccountManagement {
     List<UserAccount> accountUserList;
-
+    private static AccountManagement instance = new AccountManagement();
     public AccountManagement() {
-        accountUserList = new ArrayList<>();
+        accountUserList = IOUserAccount.readUser(IOUserAccount.PATH);
+    }
+
+    public static AccountManagement getInstance() {
+        return instance;
     }
 
     public List<UserAccount> getAccountUserList() {

@@ -42,7 +42,7 @@ public class ControllerSignUp {
     private Button checkIdForm;
 
 
-    List<UserAccount> userAccountList = new ArrayList<>();
+    List<UserAccount> userAccountList = IOUserAccount.readUser(IOUserAccount.PATH);
 
     public void createAccount(ActionEvent event) {
         boolean checkInformation = true;
@@ -69,7 +69,7 @@ public class ControllerSignUp {
         if (checkInformation) {
             userAccountList.add(userAccount);
         }
-        display();
+        IOUserAccount.writeUser(IOUserAccount.PATH, userAccountList);
 
     }
 
